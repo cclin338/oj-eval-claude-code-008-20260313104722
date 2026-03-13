@@ -1,0 +1,29 @@
+# Hello World!
+# Output: Hello World!
+
+# Load 'H' (72) and output
+O<72
+# Load 'e' (101) and output
+O<101
+# Load 'l' (108) and output
+O<108
+# Load 'l' (108) and output
+O<108
+# Load 'o' (111) and output
+O<111
+# Load ' ' (32) and output
+O<32
+# Load 'W' (87) and output
+O<87
+# Load 'o' (111) and output
+O<111
+# Load 'r' (114) and output
+O<114
+# Load 'l' (108) and output
+O<108
+# Load 'd' (100) and output
+O<100
+# Load '!' (33) and output
+O<33
+# Halt
+Z<1
