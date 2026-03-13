@@ -1,0 +1,28 @@
+# if else - compare two characters
+# Read both, compare, output result, halt
+
+# Read first character
+A<I
+# Read second character
+B<I
+
+# Mark position A in memory
+[A]<1
+
+# Check if position B is marked
+C<[B]
+
+# Output '0' (48) or '1' (49)
+# Set up lookup: mem[48]=48, mem[49]=49
+[48]<48
+[49]<49
+
+# Load result: mem[48+C]
+D<48
+D<[D+C]
+
+# Output
+O<D
+
+# Halt
+Z<1

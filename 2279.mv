@@ -1,0 +1,23 @@
+# echo problem
+# Read all input and output exactly the same
+# Stop when input is 0 (EOF)
+
+# The issue: We need to NOT output when A is 0
+# Strategy: Only output non-zero characters
+
+# Initialize: mem[0] = 1 for halt condition
+[0]<1
+
+# Read character into A
+A<I
+
+# We need to halt if A is 0 BEFORE outputting
+# Check halt condition first
+Z<[A]
+# If A=0, Z becomes 1 from mem[0], halts immediately
+# If A!=0, Z becomes 0 from mem[A], continues
+
+# Output A
+O<A
+
+# The code loops back to read next character

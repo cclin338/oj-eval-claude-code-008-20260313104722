@@ -33,14 +33,13 @@ class ACMOJClient:
         self.api_base = "https://acm.sjtu.edu.cn/OnlineJudge/api/v1"
         self.headers = {
             "Authorization": f"Bearer {access_token}",
-            "Content-Type": "application/x-www-form-urlencoded",
             "User-Agent": "ACMOJ-Python-Client/2.2"
         }
 
         self.submission_log_file = '/workspace/submission_ids.log'
         
 
-    def _make_request(self, method: str, endpoint: str, data: Dict[str, Any] = None, 
+    def _make_request(self, method: str, endpoint: str, data: Dict[str, Any] = None,
                      params: Dict[str, Any] = None) -> Optional[Dict]:
         url = f"{self.api_base}{endpoint}"
         try:
@@ -65,7 +64,12 @@ class ACMOJClient:
         except requests.exceptions.RequestException as e:
             print(f"API Request failed: {e}")
             if 'response' in locals() and response:
+                print(f"Response status: {response.status_code}")
                 print(f"Response text: {response.text}")
+                try:
+                    print(f"Response JSON: {response.json()}")
+                except:
+                    pass
             return None
 
     def _save_submission_id(self, submission_id):
