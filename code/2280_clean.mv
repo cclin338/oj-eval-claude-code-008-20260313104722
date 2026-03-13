@@ -1,0 +1,37 @@
+# printf - output ASCII code as decimal
+# Input: single ASCII character (0-255)
+# Output: decimal representation (skip leading zeros)
+
+# Read character
+A<I
+
+# We need to extract hundreds, tens, ones digits
+# and skip leading zeros
+
+# Create digit table in memory
+# For each value 0-255, store at mem[256+value]:
+# - offset pointing to where the decimal string starts
+
+# Actually, let's use a computational approach
+# Since memory is limited to 512
+
+# Strategy: Build hundreds/tens/ones lookups
+# mem[0-255]: hundreds digit (0, 1, or 2)
+# but more efficiently:
+
+# For value V:
+# hundreds = V / 100
+# tens = (V % 100) / 10
+# ones = V % 10
+
+# Use comparison ranges:
+# if V < 10: output ones only
+# if 10 <= V < 100: output tens, ones
+# if 100 <= V < 256: output hundreds, tens, ones
+
+# Build comparison flags
+# mem[300]: marker for V < 10
+# mem[301]: marker for V < 100
+# mem[302]: marker for V >= 100
+
+# Store hundreds digit for all values

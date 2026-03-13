@@ -1,0 +1,114 @@
+# sort - sort 5 ASCII digits
+# Input: 5 characters '0'-'9'
+# Output: same 5 characters in ascending order
+
+# Read 5 characters into memory
+[0]<I
+[1]<I
+[2]<I
+[3]<I
+[4]<I
+
+# Simple bubble sort approach
+# Compare and swap if needed
+
+# Pass 1: Compare [0] and [1]
+A<[0]
+B<[1]
+# If A > B, swap
+# Mark position A in mem[100+]
+C<100
+[C+A]<1
+# Check if mem[100+B] is set
+D<[C+B]
+# if D=1, then A >= B (same value), no swap needed
+# if D=0, then A < B, no swap needed
+# Actually this logic is backwards...
+
+# Let me use simpler comparison
+# A > B if A-B > 0, but we can't subtract
+# Use: if A != B, then the smaller one appears first in ASCII
+# Check all digit positions: set flags for each digit
+# Then output in order
+
+# Better approach: Count occurrences of each digit
+# mem[48-57] will count how many of each digit '0'-'9'
+
+# Initialize counters
+[48]<0
+[49]<0
+[50]<0
+[51]<0
+[52]<0
+[53]<0
+[54]<0
+[55]<0
+[56]<0
+[57]<0
+
+# Count occurrences
+A<[0]
+B<[A]
+B<B
+C<1
+B<B+C
+[A]<B
+
+A<[1]
+B<[A]
+C<1
+B<B+C
+[A]<B
+
+A<[2]
+B<[A]
+C<1
+B<B+C
+[A]<B
+
+A<[3]
+B<[A]
+C<1
+B<B+C
+[A]<B
+
+A<[4]
+B<[A]
+C<1
+B<B+C
+[A]<B
+
+# Now output in order
+# For each digit 48-57, output that many times
+
+# Digit '0' (48)
+A<48
+B<[A]
+# Output B times... but how?
+# We need a loop counter
+
+# Use mem[60] as output counter
+[60]<0
+
+# Check digit '0'
+A<48
+B<[A]
+# While B > 0: output A, B--
+# But we can't loop conditionally...
+
+# Different approach: unroll the output
+# Output each digit up to 5 times (max)
+
+# This is getting complex. Let me simplify:
+# Just do a direct sort with explicit swaps
+
+# Reset - read into registers
+A<[0]
+B<[1]
+C<[2]
+D<[3]
+E<[4]
+
+# Now sort these 5 values
+# Use mem[100+] for comparison markers
+
