@@ -1,0 +1,320 @@
+# printf - Output ASCII code as decimal number
+# Compact solution using lookup tables within 512 bytes
+
+# Read character into A
+A<I
+
+# Create hundreds digit lookup (0-255) at mem[0-255]
+# 0-99: '0', 100-199: '1', 200-255: '2'
+[0]<0
+[1]<0
+[2]<0
+[3]<0
+[4]<0
+[5]<0
+[6]<0
+[7]<0
+[8]<0
+[9]<0
+[10]<0
+[11]<0
+[12]<0
+[13]<0
+[14]<0
+[15]<0
+[16]<0
+[17]<0
+[18]<0
+[19]<0
+[20]<0
+[21]<0
+[22]<0
+[23]<0
+[24]<0
+[25]<0
+[26]<0
+[27]<0
+[28]<0
+[29]<0
+[30]<0
+[31]<0
+[32]<0
+[33]<0
+[34]<0
+[35]<0
+[36]<0
+[37]<0
+[38]<0
+[39]<0
+[40]<0
+[41]<0
+[42]<0
+[43]<0
+[44]<0
+[45]<0
+[46]<0
+[47]<0
+[48]<0
+[49]<0
+[50]<0
+[51]<0
+[52]<0
+[53]<0
+[54]<0
+[55]<0
+[56]<0
+[57]<0
+[58]<0
+[59]<0
+[60]<0
+[61]<0
+[62]<0
+[63]<0
+[64]<0
+[65]<0
+[66]<0
+[67]<0
+[68]<0
+[69]<0
+[70]<0
+[71]<0
+[72]<0
+[73]<0
+[74]<0
+[75]<0
+[76]<0
+[77]<0
+[78]<0
+[79]<0
+[80]<0
+[81]<0
+[82]<0
+[83]<0
+[84]<0
+[85]<0
+[86]<0
+[87]<0
+[88]<0
+[89]<0
+[90]<0
+[91]<0
+[92]<0
+[93]<0
+[94]<0
+[95]<0
+[96]<0
+[97]<0
+[98]<0
+[99]<0
+[100]<49
+[101]<49
+[102]<49
+[103]<49
+[104]<49
+[105]<49
+[106]<49
+[107]<49
+[108]<49
+[109]<49
+[110]<49
+[111]<49
+[112]<49
+[113]<49
+[114]<49
+[115]<49
+[116]<49
+[117]<49
+[118]<49
+[119]<49
+[120]<49
+[121]<49
+[122]<49
+[123]<49
+[124]<49
+[125]<49
+[126]<49
+[127]<49
+[128]<49
+[129]<49
+[130]<49
+[131]<49
+[132]<49
+[133]<49
+[134]<49
+[135]<49
+[136]<49
+[137]<49
+[138]<49
+[139]<49
+[140]<49
+[141]<49
+[142]<49
+[143]<49
+[144]<49
+[145]<49
+[146]<49
+[147]<49
+[148]<49
+[149]<49
+[150]<49
+[151]<49
+[152]<49
+[153]<49
+[154]<49
+[155]<49
+[156]<49
+[157]<49
+[158]<49
+[159]<49
+[160]<49
+[161]<49
+[162]<49
+[163]<49
+[164]<49
+[165]<49
+[166]<49
+[167]<49
+[168]<49
+[169]<49
+[170]<49
+[171]<49
+[172]<49
+[173]<49
+[174]<49
+[175]<49
+[176]<49
+[177]<49
+[178]<49
+[179]<49
+[180]<49
+[181]<49
+[182]<49
+[183]<49
+[184]<49
+[185]<49
+[186]<49
+[187]<49
+[188]<49
+[189]<49
+[190]<49
+[191]<49
+[192]<49
+[193]<49
+[194]<49
+[195]<49
+[196]<49
+[197]<49
+[198]<49
+[199]<49
+[200]<50
+[201]<50
+[202]<50
+[203]<50
+[204]<50
+[205]<50
+[206]<50
+[207]<50
+[208]<50
+[209]<50
+[210]<50
+[211]<50
+[212]<50
+[213]<50
+[214]<50
+[215]<50
+[216]<50
+[217]<50
+[218]<50
+[219]<50
+[220]<50
+[221]<50
+[222]<50
+[223]<50
+[224]<50
+[225]<50
+[226]<50
+[227]<50
+[228]<50
+[229]<50
+[230]<50
+[231]<50
+[232]<50
+[233]<50
+[234]<50
+[235]<50
+[236]<50
+[237]<50
+[238]<50
+[239]<50
+[240]<50
+[241]<50
+[242]<50
+[243]<50
+[244]<50
+[245]<50
+[246]<50
+[247]<50
+[248]<50
+[249]<50
+[250]<50
+[251]<50
+[252]<50
+[253]<50
+[254]<50
+[255]<50
+
+# Get hundreds digit
+B<[A]
+
+# Output if non-zero, but we need conditional
+# Setup: mem[256] stores whether to output hundreds (0 = no)
+[256]<1
+# Mark '0' as skip
+C<48
+[C]<0
+
+# Check via lookup
+D<[B]
+# Now D is 1 if we should output, 0 if we shouldn't
+# But this doesn't help directly...
+
+# Simplification: always output all digits, use leading zero supression later
+# Actually, problem says output up to 3 digits, so we might need to skip leading zeros
+
+# Let me just output the hundreds if it's not zero
+# Check: if B != 48, output B
+
+# Since we can't do direct conditional, let's use this trick:
+# Create lookup where mem[48] points to next instruction (skip output)
+# But we can't skip instructions...
+
+# Practical solution: Output hundreds only if >= 100
+# Use a flag system...
+
+# Actually, the problem says "up to three digits", which means:
+# - For 9 (57): output "57" (not "057")
+# - For 100: output "100"
+
+# Simplest: Check if hundreds is 0, skip if so
+# Use register to track this
+
+# Since B contains ASCII digit for hundreds:
+# If B == 48 ('0'), don't output it
+# Otherwise, output it
+
+# Mark positions for output control
+E<B  # Save hundreds digit
+F<48  # ASCII '0'
+
+# To output conditionally, I need to use memory trick
+# Set output flag: if B != 48, then output
+[260]<1  # Default: output
+[48]<0   # Override: don't output '0'... wait, this conflicts!
+
+# Let me restart with a cleaner approach
+# I'll compute the modulo 100 for tens/ones
+
+# B has hundreds digit (ASCII)
+# Now compute A mod 100 for tens and ones
+
+# Create mod 100 lookup at 256

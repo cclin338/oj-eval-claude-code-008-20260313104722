@@ -1,0 +1,88 @@
+# if else - compare two characters
+# Strategy: Read both, compare, output result, then halt
+
+# Phase 1: Read input (only happens first time through loop)
+# Use a flag to track if we've read input
+# Check mem[0] - if 0, we haven't read yet
+A<[0]
+# If A is 0, we need to read, otherwise skip reading
+# But we can't skip... so let's just read in first pass
+
+# Since I input always reads on I register access:
+# First time: read char 1 -> B
+B<I
+# Second time: read char 2 -> C
+C<I
+
+# Now B has char1, C has char2
+# Store them so we don't lose them
+[1]<B
+[2]<C
+
+# Compare: Load them back
+D<[1]
+E<[2]
+
+# Check if D == E
+# Set output to '0' first (ASCII 48)
+F<48
+
+# If D == E, we need to change F to '1' (ASCII 49)
+# The trick: use D as an index, mark that position
+# Then use E as an index, check if marked
+# If both point to same location, it's marked
+
+# Better: Use subtraction table concept
+# Store D at position E: if they're same position, we can detect it
+# mem[100+D] = 1
+# Check if mem[100+E] == 1
+
+# Actually, let's use this algorithm:
+# 1. Set mem[100+D] = some marker value (like D itself)
+# 2. Load mem[100+E]
+# 3. Compare loaded value with E
+#    If equal to E, then D must have been E (since we stored D there)
+
+# Step 1: Calculate 100+D and store D there
+A<100
+# Add D to A... but we can't add directly
+# We need to use memory indexing: [A+D]
+
+# Simpler approach:
+# Store the value 1 at mem[B] (first char as index)
+# Then check mem[C] (second char as index)
+# If mem[C] == 1, they were the same
+
+# Set mem[B] = 1
+A<B
+[A]<1
+
+# Now check mem[C]
+A<C
+D<[A]
+
+# If D == 1, chars were equal, output '1', else output '0'
+# D is now either 1 (equal) or 0 (different, assuming mem starts at 0)
+
+# Output: '0' is ASCII 48, '1' is ASCII 49
+# So output = 48 + D
+A<48
+# We need A = 48 + D but only have mov
+# Use memory: mem[48] = '0', mem[49] = '1'
+[48]<48
+[49]<49
+
+# Now use D as offset from 48
+A<48
+# Load mem[A+D] which is mem[48+D]
+# If D=0: mem[48]='0', if D=1: mem[49]='1'
+A<[A+D]
+
+# Output A
+O<A
+
+# Set flag at mem[0] to non-zero so we know we've processed
+[0]<1
+
+# Halt
+Z<1
