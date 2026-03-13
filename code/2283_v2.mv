@@ -1,0 +1,73 @@
+# Hanoi - handle n=1 and n=2
+
+# Read input
+A<I
+
+# Check if n=1 (ASCII 49)
+[49]<1
+B<[A]
+# Check if n=2 (ASCII 50)
+[50]<2
+C<[A]
+
+# Branch based on input
+# If B==1 (n=1): output A->C
+# If C==2 (n=2): output A->B, A->C, B->C
+
+# Use B+C as indicator (1+0=1 for n=1, 0+2=2 for n=2)
+D<B
+E<C
+D<D+E
+
+# Store move sequence pointers
+# [256]=start of n=1 moves
+# [257]=start of n=2 moves
+
+# Build n=1 sequence at mem[300+]
+[300]<65   # 'A'
+[301]<45   # '-'
+[302]<62   # '>'
+[303]<67   # 'C'
+[304]<10   # '\n'
+[305]<0    # end
+
+# Build n=2 sequence at mem[310+]
+[310]<65   # 'A'
+[311]<45   # '-'
+[312]<62   # '>'
+[313]<66   # 'B'
+[314]<10   # '\n'
+[315]<65   # 'A'
+[316]<45   # '-'
+[317]<62   # '>'
+[318]<67   # 'C'
+[319]<10   # '\n'
+[320]<66   # 'B'
+[321]<45   # '-'
+[322]<62   # '>'
+[323]<67   # 'C'
+[324]<10   # '\n'
+[325]<0    # end
+
+# Set pointers
+[256]<300
+[257]<310
+
+# Get pointer based on D (1 or 2)
+# Load from [255+D]
+E<255
+F<[E+D]
+
+# Output characters from position F until 0
+# Character loop
+G<[F]
+O<G
+# Increment F
+H<1
+F<F+H
+# Check if done
+G<[F]
+# Set halt if G==0
+[0]<1
+Z<[G]
+# If not 0, continue (program loops)

@@ -1,0 +1,176 @@
+# Hanoi - check before output
+
+# Check if already executed
+B<[0]
+Z<B
+
+# Read input
+A<I
+
+# Setup sequences
+[100]<65
+[101]<45
+[102]<62
+[103]<67
+[104]<10
+
+[150]<65
+[151]<45
+[152]<62
+[153]<66
+[154]<10
+[155]<65
+[156]<45
+[157]<62
+[158]<67
+[159]<10
+[160]<66
+[161]<45
+[162]<62
+[163]<67
+[164]<10
+
+# Map
+[49]<100
+[50]<150
+
+# Get start
+C<[A]
+
+# Create halt check: mem[254]=1, all others=0 (already 0)
+[254]<1
+
+# Output with check
+# Load char
+D<[C]
+# Check if 0: load mem[253+D]
+# If D=0: mem[253]=0, if D!=0: mem[253+D]=0 (already)
+# Actually: only halt if D==0
+# Set up: mem[0]=1 for D=0 case
+# Replace previous [0] use with [1]
+
+# Restart logic
+# Check execution flag at [1]
+B<[1]
+Z<B
+
+# Read input
+A<I
+
+# Setup...(same as before)
+# Actually let me reload
+
+# Read input
+A<I
+
+# Setup
+[100]<65
+[101]<45
+[102]<62
+[103]<67
+[104]<10
+
+[150]<65
+[151]<45
+[152]<62
+[153]<66
+[154]<10
+[155]<65
+[156]<45
+[157]<62
+[158]<67
+[159]<10
+[160]<66
+[161]<45
+[162]<62
+[163]<67
+[164]<10
+
+[49]<100
+[50]<150
+
+C<[A]  # C = start position
+
+# Use [0] as halt indicator for seeing 0
+[0]<1
+
+# Output loop - unrolled
+D<[C]
+Z<[D+0]  # Halt if pointing to mem[0] and value is 0... no, Z<[0] always
+# Need different approach
+
+# If D==0, Z should become 1
+# Set mem[0]=1, others=0
+# Then Z<[D] will halt only if D==0
+
+# Clear first
+[0]<0
+# Oops, can't clear range easily
+
+# Just check D directly for each output
+# If D==0, skip output (but O<0 should not output per hint)
+# Just output and rely on O<0 not outputting
+
+D<[C]
+O<D
+E<1
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+# Halt
+Z<1

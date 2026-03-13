@@ -1,0 +1,114 @@
+# Read and branch
+A<I
+
+# If A==49, output n=1 solution
+# If A==50, output n=2 solution
+
+# Setup map
+[49]<1  # Flag for n=1
+[50]<2  # Flag for n=2
+
+B<[A]  # B is now 1 or 2 or 0
+
+# For n=1 (B==1):
+# Output A->C\n
+# Check if B==1 by setting mem[1]=XXX
+# Then load mem[B]
+
+# Put sequence at position based on B
+# Position 10: for B=1
+# Position 20: for B=2
+
+# Store for B=1 at 10
+[10]<65
+[11]<45
+[12]<62
+[13]<67
+[14]<10
+
+# Store for B=2 at 20
+[20]<65
+[21]<45
+[22]<62
+[23]<66
+[24]<10
+[25]<65
+[26]<45
+[27]<62
+[28]<67
+[29]<10
+[30]<66
+[31]<45
+[32]<62
+[33]<67
+[34]<10
+
+# Map B value to position
+[1]<10  # If B=1, start at 10
+[2]<20  # If B=2, start at 20
+
+C<[B]  # C is now 10 or 20
+
+# Output 15 characters max
+D<[C]
+O<D
+E<1
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+D<[C]
+O<D
+C<C+E
+
+Z<1

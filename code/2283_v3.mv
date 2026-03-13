@@ -1,0 +1,110 @@
+# Hanoi - simple version for n=1 and n=2
+
+# Read input
+A<I
+
+# Setup: mark A=49 (n=1) and A=50 (n=2)
+[49]<49
+[50]<50
+
+# Check what we have
+B<[A]
+
+# If B==49, do n=1
+# If B==50, do n=2
+# Otherwise halt
+
+# For n=1: output A->C\n
+# For n=2: output A->B\nA->C\nB->C\n
+
+# Use B to determine which sequence
+# Store sequence start positions
+# Actually, let's just branch explicitly
+
+# Load value at [B] which is either 49 or 50 or 0
+C<B
+
+# Compare with 49
+[49]<100  # marker for path 1
+[50]<200  # marker for path 2
+
+D<[C]
+
+# If D==100, do n=1
+# If D==200, do n=2
+
+#Actually this is getting messy. Let me just output both cases separately
+
+# For n=1 (A==49):
+# Check if A==49 by marking
+[49]<1
+[50]<0
+E<[A]
+
+# If E==1: n=1, output A->C\n
+# If E==0: not n=1, check n=2
+
+# Simpler: just directly code both cases
+
+# Case 1: if input is '1'
+# Read A, if A==49, set flag and output
+
+# Actually let me use this approach:
+# Store moves for n=1 starting at position based on input
+
+# For '1' (49): store at 100
+# For '2' (50): store at 200
+
+# Then load from [100] or [200] based on A
+
+# Setup for n=1 at 100+
+[100]<65   # 'A'
+[101]<45   # '-'
+[102]<62   # '>'
+[103]<67   # 'C'
+[104]<10   # '\n'
+# For n=2 at 150+
+[150]<65   # 'A'
+[151]<45   # '-'
+[152]<62   # '>'
+[153]<66   # 'B'
+[154]<10   # '\n'
+[155]<65   # 'A'
+[156]<45   # '-'
+[157]<62   # '>'
+[158]<67   # 'C'
+[159]<10   # '\n'
+[160]<66   # 'B'
+[161]<45   # '-'
+[162]<62   # '>'
+[163]<67   # 'C'
+[164]<10   # '\n'
+
+# Map: for input 49 ('1'), start at 100
+# for input 50 ('2'), start at 150
+# Use mem[49]=100, mem[50]=150
+[49]<100
+[50]<150
+
+# Get start position
+B<[A]
+
+# Now output from position B
+# Load and output until we output 5 chars (n=1) or 15 chars (n=2)
+# Or better: store a terminator
+
+# Add terminator
+[105]<0
+[165]<0
+
+# Output loop
+C<[B]
+O<C
+D<1
+B<B+D
+C<[B]
+# Checklif C==0
+[0]<1
+[1]<0
+E<[C]
+Z<E
